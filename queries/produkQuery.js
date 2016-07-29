@@ -53,6 +53,7 @@ var getData = (req, res) => {
     '_id': 0,
     '__v': 0
   }, (err, data) => {
+    console.log(data);
     res.json(data)
   })
 }
