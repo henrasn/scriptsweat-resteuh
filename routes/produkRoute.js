@@ -5,6 +5,8 @@ var keranjangQuery = require('../queries/keranjangQuery');
 
 var router = express.Router();
 
+router.route('/produk')
+  .get(prodQuery.getData);
 router.route('/produk/promo')
   .get(prodQuery.getPromo);
 router.route('/produk/detail/:id')

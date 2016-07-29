@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var model = new Schema({
   idProduk: String,
-  rating: [{
+  ratings: [{
     user: String,
     rate: Number,
     comment: String
@@ -17,4 +17,4 @@ var modelRating = new Schema({
 })
 
 module.exports.main = mongoose.model('rating', model, 'rating');
-module.exports.model = mongoose.model('modelRating', modelRating);
+module.exports.model = mongoose.model('model', modelRating);

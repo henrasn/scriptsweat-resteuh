@@ -10,10 +10,6 @@ var getRating = (req, res) => {
 }
 
 var addRating = (req, res) => {
-  // console.log(req.params.idProduk);
-  // console.log(req.body.user);
-  // console.log(req.body.rate);
-  // console.log(req.body.comment);
   model.find({
     'idProduk': req.params.idProduk
   }, {}, (err, data) => {
@@ -21,7 +17,7 @@ var addRating = (req, res) => {
       console.log('doesnt exist');
       var newModel = new model({
         idProduk: req.params.idProduk,
-        rating: [{
+        ratings: [{
           user: req.body.user,
           rate: req.body.rate,
           comment: req.body.comment
@@ -47,7 +43,7 @@ var addRating = (req, res) => {
         'idProduk': req.params.idProduk
       }, {
         $addToSet: {
-          rating: newRating
+          ratings: newRating
         }
       }, (err) => {
         console.log(err);

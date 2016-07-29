@@ -4,6 +4,7 @@
   "description": "rest-server",
   "main": "index.js",
   "dependencies": {
+    "async": "^2.0.0",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "faker": "^3.1.0",
