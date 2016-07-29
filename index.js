@@ -3,8 +3,9 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   router = require('./routes/produkRoute');
 
-mongoose.connect('mongodb://127.0.0.1/produk');
+// mongoose.connect('mongodb://127.0.0.1/produk');
 // mongoose.connect('mongodb://restapi:henra12@ds011933.mlab.com:11933/dbrest');
+mongoose.connect('mongodb://dbrest:restdatabase@ds031965.mlab.com:31965/dbscript');
 var app = express();
 var port = process.env.PORT || 3000;
 // var router = express.Router();
