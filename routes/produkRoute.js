@@ -2,6 +2,7 @@ var express = require('express');
 var prodQuery = require('../queries/produkQuery');
 var rateQuery = require('../queries/ratingQuery');
 var keranjangQuery = require('../queries/keranjangQuery');
+var wishlistQuery = require('../queries/wishlistQuery');
 
 var router = express.Router();
 
@@ -23,5 +24,11 @@ router.route('/keranjang/delete/:idUser')
 router.route('/produk/rating/:idProduk')
   .get(rateQuery.getRating)
   .post(rateQuery.addRating);
+
+router.route('/produk/wishlist/:idUser')
+  .get(wishlistQuery.getWishlist)
+  .post(wishlistQuery.addWishlist)
+router.route('/produk/wishlist/delete/:idUser')
+  .post(wishlistQuery.delWishlist)
 
 module.exports = router;
