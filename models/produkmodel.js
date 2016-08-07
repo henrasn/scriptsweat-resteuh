@@ -27,5 +27,5 @@ var produkModel = new Schema({
   }]
 });
 
-module.exports = mongoose.model('data', produkModel, 'data');
-// module.exports = mongoose.model('produk', produkModel, 'produk');
+// module.exports = mongoose.model('data', produkModel, 'data');
+module.exports = mongoose.model('produk', produkModel, 'produk');
