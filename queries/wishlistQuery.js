@@ -8,9 +8,16 @@ var getWishlist = (req, res) => {
     '__v': 0
   }, (err, data) => {
     if (err)
-      res.send(err)
+      res.json({
+        "error": true,
+        "message": err
+      })
     else
-      res.json(data)
+      res.json({
+        data: {
+          wishlist: data
+        }
+      })
   })
 }
 
@@ -19,31 +26,43 @@ var addWishlist = (req, res) => {
     'idUser': req.params.idUser
   }, {}, (err, data) => {
     if (data[0] == null) {
-      console.log('doesnt exist');
       var newModel = new Model({
         idUser: req.params.idUser,
         produks: [req.body.idProduk]
       });
 
-      newModel.save((err) => {
+      newModel.save((err, body) => {
         if (err)
-          res.send(err)
+          res.json({
+            "error": true,
+            "message": err
+          })
         else
-          res.send("success")
+          res.json({
+            data: {
+              wishlistAdd: body
+            }
+          })
       })
     } else {
-      console.log('exist');
       Model.update({
         'idUser': req.params.idUser
       }, {
         $addToSet: {
           produks: req.body.idProduk
         }
-      }, (err) => {
+      }, (err, body) => {
         if (err)
-          res.send(err)
+          res.json({
+            "error": true,
+            "message": err
+          })
         else
-          res.send("success")
+          res.json({
+            data: {
+              wishlistAdd: body
+            }
+          })
       })
     }
   })
@@ -56,11 +75,24 @@ var delWishlist = (req, res) => {
     $pull: {
       produks: req.body.idProduk
     }
-  }, (err) => {
+  }, (err, body) => {
+    console.log(body);
     if (err)
-      res.send(err)
+      res.json({
+        "error": true,
+        "message": err
+      })
+    else if (body.nModified > 0)
+      res.json({
+        data: {
+          wishlistDel: body
+        }
+      })
     else
-      res.send("success")
+      res.json({
+        "error": true,
+        "message": "delete failed"
+      })
   })
 }
 

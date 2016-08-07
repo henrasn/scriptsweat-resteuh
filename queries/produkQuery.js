@@ -31,10 +31,15 @@ var getAllData = (req, res) => {
     '_id': 0
   }, (err, data) => {
     if (err)
-      res.send(err)
+      res.json({
+        error: true,
+        message: err
+      })
     else
       res.json({
-        data: data
+        data: {
+          detailProduk: data
+        }
       })
   })
 }
@@ -53,8 +58,17 @@ var getData = (req, res) => {
     '_id': 0,
     '__v': 0
   }, (err, data) => {
-    console.log(data);
-    res.json(data)
+    if (err)
+      res.json({
+        "error": true,
+        "message": err
+      })
+    else
+      res.json({
+        "data": {
+          "allProduk": data
+        }
+      })
   })
 }
 

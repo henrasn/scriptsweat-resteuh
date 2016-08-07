@@ -5,9 +5,21 @@ var getKeranjang = (req, res) => {
   Model.find({
     'idUser': req.params.idUser
   }, {
-    '_id': 0
+    '_id': 0,
+    '__v': 0
   }, (err, data) => {
-    res.json(data)
+    if (err) {
+      res.json({
+        "error": true,
+        "message": err
+      })
+    } else {
+      res.json({
+        data: {
+          keranjang: data
+        }
+      })
+    }
   })
 }
 
@@ -15,7 +27,7 @@ var addKeranjang = (req, res) => {
   Model.find({
     'idUser': req.params.idUser
   }, {}, (err, data) => {
-    console.log(data);
+    console.log(data[0]);
     if (data[0] == null) {
       var newModel = new Model({
         idUser: req.params.idUser,
@@ -26,19 +38,26 @@ var addKeranjang = (req, res) => {
         }]
       })
 
-      newModel.save((err) => {
-        res.send(err)
+      newModel.save((err, body) => {
+        if (err)
+          res.json({
+            error: true,
+            message: err
+          })
+        else {
+          res.json({
+            data: {
+              keranjangAdd: body
+            }
+          })
+        }
       })
     } else {
-      console.log('exist');
       var newProduk = new produkModel({
         idProduk: req.body.idProduk,
         jumlah: req.body.jumlah,
         tanggal: new Date()
       });
-
-      console.log(newProduk.jumlah);
-      console.log(newProduk.idProduk);
 
       Model.update({
         'idUser': req.params.idUser
@@ -46,14 +65,26 @@ var addKeranjang = (req, res) => {
         $addToSet: {
           produks: newProduk
         }
-      }, (err) => {
-        console.log(err);
+      }, (err, body) => {
+        if (err)
+          res.json({
+            error: true,
+            message: err
+          })
+        else {
+          res.json({
+            data: {
+              keranjangAdd: body
+            }
+          })
+        }
       })
     }
   })
 }
 
 var delKeranjang = (req, res) => {
+  console.log(req.body.idProduk);
   Model.update({
     idUser: req.params.idUser
   }, {
@@ -62,12 +93,21 @@ var delKeranjang = (req, res) => {
         idProduk: req.body.idProduk
       }
     }
-  }, (err) => {
-    console.log(err);
+  }, (err, body) => {
+    if (err)
+      res.json({
+        error: true,
+        message: err
+      })
+    else
+      res.json({
+        data: {
+          keranjangDel: body
+        }
+      })
   })
 }
 
 module.exports.getKeranjang = getKeranjang;
 module.exports.addKeranjang = addKeranjang;
 module.exports.delKeranjang = delKeranjang;
-// module.exports

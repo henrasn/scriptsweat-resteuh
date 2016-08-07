@@ -5,7 +5,17 @@ var getRating = (req, res) => {
   model.find({
     'idProduk': req.params.idProduk
   }, {}, (err, data) => {
-    res.json(data)
+    if (err)
+      res.json({
+        error: true,
+        message: err
+      })
+    else
+      res.json({
+        data: {
+          rating: data
+        }
+      })
   })
 }
 
@@ -24,11 +34,18 @@ var addRating = (req, res) => {
         }]
       });
 
-      newModel.save((err) => {
+      newModel.save((err, body) => {
         if (err)
-          res.send(err)
+          res.json({
+            error: true,
+            message: err
+          })
         else
-          res.send("success")
+          res.json({
+            data: {
+              ratingAdd: body
+            }
+          })
       })
     } else {
       console.log('exist');
@@ -45,8 +62,18 @@ var addRating = (req, res) => {
         $addToSet: {
           ratings: newRating
         }
-      }, (err) => {
-        console.log(err);
+      }, (err, body) => {
+        if (err)
+          res.json({
+            error: true,
+            message: err
+          })
+        else
+          res.json({
+            data: {
+              ratingAdd: body
+            }
+          })
       })
     }
   })
