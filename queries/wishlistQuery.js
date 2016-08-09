@@ -1,4 +1,5 @@
 var Model = require('../models/wishlistModel');
+var fake = require('faker');
 
 var getWishlist = (req, res) => {
   Model.find({
@@ -28,7 +29,7 @@ var addWishlist = (req, res) => {
     if (data[0] == null) {
       var newModel = new Model({
         idUser: req.params.idUser,
-        produks: [req.body.idProduk]
+        produks: [fake.random.number(99999)]
       });
 
       newModel.save((err, body) => {
@@ -49,7 +50,7 @@ var addWishlist = (req, res) => {
         'idUser': req.params.idUser
       }, {
         $addToSet: {
-          produks: req.body.idProduk
+          produks: fake.random.number(99999)
         }
       }, (err, body) => {
         if (err)

@@ -3,6 +3,8 @@ var prodQuery = require('../queries/produkQuery');
 var rateQuery = require('../queries/ratingQuery');
 var keranjangQuery = require('../queries/keranjangQuery');
 var wishlistQuery = require('../queries/wishlistQuery');
+var saveRating = require('../queries/saveRatingQuery');
+var saveKeranjang = require('../queries/saveKeranjangQuery');
 
 var router = express.Router();
 
@@ -20,10 +22,14 @@ router.route('/keranjang/:idUser')
   .post(keranjangQuery.addKeranjang);
 router.route('/keranjang/delete/:idUser')
   .post(keranjangQuery.delKeranjang);
+router.route('/new/keranjang')
+  .post(saveKeranjang)
 
 router.route('/produk/rating/:idProduk')
   .get(rateQuery.getRating)
   .post(rateQuery.addRating);
+router.route('/produk/new/rating')
+  .post(saveRating);
 
 router.route('/produk/wishlist/:idUser')
   .get(wishlistQuery.getWishlist)

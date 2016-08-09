@@ -4,7 +4,10 @@ var rating = require('../models/ratingModel').model;
 var getRating = (req, res) => {
   model.find({
     'idProduk': req.params.idProduk
-  }, {}, (err, data) => {
+  }, {
+    '_id': 0,
+    '__v': 0
+  }, (err, data) => {
     if (err)
       res.json({
         error: true,
